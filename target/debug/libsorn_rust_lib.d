@@ -1,1 +1,0 @@
-/home/haron/Documents/gits/sorn_rust_lib/target/debug/libsorn_rust_lib.rlib: /home/haron/Documents/gits/sorn_rust_lib/src/lib.rs /home/haron/Documents/gits/sorn_rust_lib/src/sorn.rs /home/haron/Documents/gits/sorn_rust_lib/src/sornset.rs /home/haron/Documents/gits/sorn_rust_lib/src/sorntable_gen.rs
