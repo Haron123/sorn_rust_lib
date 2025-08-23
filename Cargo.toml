@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+bigint = "4.4.3"
+fchashmap = "0.1.3"
+fxhash = "0.2.1"
+rand = "0.9.1"
