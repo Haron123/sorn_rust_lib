@@ -618,10 +618,10 @@ impl Sorn
 			self.sorn_set.borrow_mut().precomputed_sub.insert((operand.bits, self.bits), result);
 		}
 
-		if operation == "mul" {
-			let mut sorn_set = self.sorn_set.borrow_mut();
-			sorn_set.precomputed_mul.insert((self.bits, operand.bits), result);
-			sorn_set.precomputed_mul.insert((operand.bits, self.bits), result);
+		if operation == "mul"
+		{
+			self.sorn_set.borrow_mut().precomputed_mul.insert((self.bits, operand.bits), result);
+			self.sorn_set.borrow_mut().precomputed_mul.insert((operand.bits, self.bits), result);
 		}
 
 		if operation == "div"
