@@ -618,10 +618,10 @@ impl Sorn
 			self.sorn_set.borrow_mut().precomputed_sub.insert((operand.bits, self.bits), result);
 		}
 
-		if operation == "mul"
-		{
-			self.sorn_set.borrow_mut().precomputed_mul.insert((self.bits, operand.bits), result);
-			self.sorn_set.borrow_mut().precomputed_mul.insert((operand.bits, self.bits), result);
+		if operation == "mul" {
+			let mut sorn_set = self.sorn_set.borrow_mut();
+			sorn_set.precomputed_mul.insert((self.bits, operand.bits), result);
+			sorn_set.precomputed_mul.insert((operand.bits, self.bits), result);
 		}
 
 		if operation == "div"
@@ -1104,7 +1104,7 @@ impl std::cmp::PartialEq for Sorn
 #[cfg(test)]
 mod tests 
 {
-    use crate::sorntabe_gen;
+    use crate::sorntable_gen;
 
     use super::*;
 	use super::SornValue::*;
@@ -1213,7 +1213,7 @@ mod tests
 
 		let set = Rc::new(RefCell::new(SornSet::new(-1.0, 1.0, 1.0, false)));
 		let sorn1 = Sorn::new(set.clone());
-		let table = sorntabe_gen::gen_table(sorn1.sorn_set.clone(), "add");
+		let table = sorntable_gen::gen_table(sorn1.sorn_set.clone(), "add");
 
 		println!("{}", table.to_csv());
 		println!("{}", expected);
@@ -1235,7 +1235,7 @@ mod tests
 
 		let set = Rc::new(RefCell::new(SornSet::new(-1.0, 0.0, 1.0, true)));
 		let sorn1 = Sorn::new(set.clone());
-		let table = sorntabe_gen::gen_table(sorn1.sorn_set.clone(), "add");
+		let table = sorntable_gen::gen_table(sorn1.sorn_set.clone(), "add");
 
 		println!("{}", table.to_csv());
 		println!("{}", expected);
