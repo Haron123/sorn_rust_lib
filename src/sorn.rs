@@ -615,7 +615,6 @@ impl Sorn
 		if operation == "sub"
 		{
 			self.sorn_set.borrow_mut().precomputed_sub.insert((self.bits, operand.bits), result);
-			self.sorn_set.borrow_mut().precomputed_sub.insert((operand.bits, self.bits), result);
 		}
 
 		if operation == "mul"
