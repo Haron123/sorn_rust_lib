@@ -255,22 +255,22 @@ impl std::fmt::Debug for SornValue
 
 			SornValue::Open((start, end)) =>
 			{
-				write!(f, "({},{})", start, end)
+				write!(f, "({:.1},{:.1})", start, end)
 			},
 
 			SornValue::OpenLeft((start, end)) =>
 			{
-				write!(f, "({},{}]", start, end)
+				write!(f, "({:.1},{:.1}]", start, end)
 			},
 
 			SornValue::OpenRight((start, end)) =>
 			{
-				write!(f, "[{},{})", start, end)
+				write!(f, "[{:.1},{:.1})", start, end)
 			},
 
 			SornValue::Exact(value) =>
 			{
-				write!(f, "[{}]", value)
+				write!(f, "[{:.1}]", value)
 			},
 
 			SornValue::PlusMinusInf =>
