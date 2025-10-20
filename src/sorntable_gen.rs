@@ -69,7 +69,7 @@ impl SornTable
 	pub fn to_csv(&self) -> String
 	{
 		let mut result: String = "".to_owned();
-		let n = sorn_sets.borrow().len();
+		let n = self.sorn_sets.borrow().len();
 
 		/* Add the Row Header */
 		result.push(',');
