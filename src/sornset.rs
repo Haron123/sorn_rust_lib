@@ -383,7 +383,7 @@ impl SornSet
 			if values.len() == 1
 			{
 				let number: String = values[0].chars().filter(|&c| c != '[' && c != ']').collect();
-				sets.push(SornValue::Exact(number.parse().expect(&!format("Could not parse to float: {}", number))));
+				sets.push(SornValue::Exact(number.parse().expect(&format!("Could not parse to float: {}", number))));
 			}
 			else if values.len() == 2
 			{
