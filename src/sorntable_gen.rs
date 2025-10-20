@@ -20,7 +20,7 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
 	let mut table_data = vec![vec![0; num_sets]; num_sets];
 
 	/* Create a SORN for every bit */
-    for i in num_sets
+    for i in 0..num_sets
     {
         let mut sorn = Sorn::new(sorn_sets.clone());
 
