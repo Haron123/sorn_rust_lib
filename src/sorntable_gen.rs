@@ -66,7 +66,7 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
 
 impl SornTable
 {
-	pub fn to_csv(&self) -> String
+	pub fn to_csv_bits(&self) -> String
 	{
 		let mut result: String = "".to_owned();
 		let n = self.sorn_sets.borrow().len();
@@ -87,6 +87,35 @@ impl SornTable
 			for col in row
 			{
 				result.push_str(&format!("{:0n$b},", col));
+			}
+
+			result.push('\n');
+		}
+
+		return result;
+	}
+
+	pub fn to_csv_intervals(&self) -> String
+	{
+		let mut result: String = "".to_owned();
+		let n = self.sorn_sets.borrow().len();
+
+		/* Add the Row Header */
+		result.push(',');
+		for item in &self.header
+		{
+			result.push_str(&format!("{},", item.to_string_nobits()));
+		}
+		result.push('\n');
+
+		/* Add the Column Header alongside the Tabledata */
+		for (i, row) in self.table_data.iter().enumerate()
+		{
+			result.push_str(&format!("{},", self.header[i].to_string_nobits()));
+
+			for col in row
+			{
+				result.push_str(&format!("{},", col.to_string_nobits()));
 			}
 
 			result.push('\n');
