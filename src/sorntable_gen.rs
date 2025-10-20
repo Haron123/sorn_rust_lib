@@ -69,23 +69,24 @@ impl SornTable
 	pub fn to_csv(&self) -> String
 	{
 		let mut result: String = "".to_owned();
+		let n = sorn_sets.borrow().len();
 
 		/* Add the Row Header */
 		result.push(',');
 		for item in &self.header
 		{
-			result.push_str(&format!("{:b},", item));
+			result.push_str(&format!("{:0n$b},", item));
 		}
 		result.push('\n');
 
 		/* Add the Column Header alongside the Tabledata */
 		for (i, row) in self.table_data.iter().enumerate()
 		{
-			result.push_str(&format!("{:b},", self.header[i]));
+			result.push_str(&format!("{:0n$b},", self.header[i]));
 
 			for col in row
 			{
-				result.push_str(&format!("{:b},", col));
+				result.push_str(&format!("{:0n$b},", col));
 			}
 
 			result.push('\n');
