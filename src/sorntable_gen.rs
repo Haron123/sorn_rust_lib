@@ -44,10 +44,10 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
 			let mut cur = Sorn::default();
 			match operator
 			{
-				"add" => cur = sorns[i] + sorns[j],
-				"sub" => cur = sorns[i] - sorns[j],
-				"mul" => cur = sorns[i] * sorns[j],
-				"div" => cur = sorns[i] / sorns[j],
+				"add" => cur = &sorns[i] + &sorns[j],
+				"sub" => cur = &sorns[i] - &sorns[j],
+				"mul" => cur = &sorns[i] * &sorns[j],
+				"div" => cur = &sorns[i] / &sorns[j],
 
 				_ => panic!("Tried to generate SORN Table without valid operator, use 'add', 'sub', 'mul' or 'div'")
 			}
