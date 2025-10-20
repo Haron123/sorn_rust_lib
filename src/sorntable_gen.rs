@@ -20,7 +20,7 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
 	let mut table_data = vec![vec![0; num_sets]; num_sets];
 
 	/* Create a SORN for every bit */
-    for i in 0..sorn_sets.borrow().len()
+    for i in num_sets
     {
         let mut sorn = Sorn::new(sorn_sets.clone());
 
@@ -31,23 +31,23 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
     }
 
 	/* Write every SORN generated before in the header as bits */
-    for i in 0..sorn_sets.borrow().len()
+    for i in 0..num_sets
     {
         header[i] = sorns[i].bits;
     }
 
 	/* Write the Tabledata */
-    for i in 0..sorn_sets.borrow().len()
+    for i in 0..num_sets
     {
-        for j in 0..sorn_sets.borrow().len()
+        for j in 0..num_sets
         {
 			let mut cur = Sorn::default();
 			match operator
 			{
-				"add" => cur = sorns[i].clone() + sorns[j].clone(),
-				"sub" => cur = sorns[i].clone() - sorns[j].clone(),
-				"mul" => cur = sorns[i].clone() * sorns[j].clone(),
-				"div" => cur = sorns[i].clone() / sorns[j].clone(),
+				"add" => cur = sorns[i] + sorns[j],
+				"sub" => cur = sorns[i] - sorns[j],
+				"mul" => cur = sorns[i] * sorns[j],
+				"div" => cur = sorns[i] / sorns[j],
 
 				_ => panic!("Tried to generate SORN Table without valid operator, use 'add', 'sub', 'mul' or 'div'")
 			}
