@@ -5,8 +5,8 @@ pub struct SornTable
 {
 	sorn_sets: Rc<RefCell<SornSet>>,
 
-	header: Vec<SornBitsType>,
-	table_data: Vec<Vec<SornBitsType>>
+	header: Vec<Sorn>,
+	table_data: Vec<Vec<Sorn>>
 }
 
 /* possible operators: "add", "sub", "mul", "div" */
@@ -16,8 +16,8 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
 
 	let num_sets = sorn_sets.borrow().len();
 
-	let mut header = vec![0; num_sets];
-	let mut table_data = vec![vec![0; num_sets]; num_sets];
+	let mut header = vec![Sorn::default(); num_sets];
+	let mut table_data = vec![vec![Sorn::default(); num_sets]; num_sets];
 
 	/* Create a SORN for every bit */
     for i in 0..num_sets
@@ -33,7 +33,7 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
 	/* Write every SORN generated before in the header as bits */
     for i in 0..num_sets
     {
-        header[i] = sorns[i].bits;
+        header[i] = sorns[i].clone();
     }
 
 	/* Write the Tabledata */
@@ -41,7 +41,8 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
     {
         for j in 0..num_sets
         {
-			let mut cur = Sorn::default();
+			let cur;
+
 			match operator
 			{
 				"add" => cur = &sorns[i] + &sorns[j],
@@ -52,7 +53,7 @@ pub fn gen_table(sorn_sets: Rc<RefCell<SornSet>>, operator: &str) -> SornTable
 				_ => panic!("Tried to generate SORN Table without valid operator, use 'add', 'sub', 'mul' or 'div'")
 			}
 
-            table_data[j][i] = cur.bits; 
+            table_data[j][i] = cur; 
         }
     }
 
@@ -75,18 +76,18 @@ impl SornTable
 		result.push(',');
 		for item in &self.header
 		{
-			result.push_str(&format!("{:0n$b},", item));
+			result.push_str(&format!("{:0n$b},", item.bits));
 		}
 		result.push('\n');
 
 		/* Add the Column Header alongside the Tabledata */
 		for (i, row) in self.table_data.iter().enumerate()
 		{
-			result.push_str(&format!("{:0n$b},", self.header[i]));
+			result.push_str(&format!("{:0n$b},", self.header[i].bits));
 
 			for col in row
 			{
-				result.push_str(&format!("{:0n$b},", col));
+				result.push_str(&format!("{:0n$b},", col.bits));
 			}
 
 			result.push('\n');
@@ -138,7 +139,7 @@ impl std::string::ToString for SornTable
 		result.push_str("\t|\t");
 		for item in &self.header
 		{
-			result.push_str(&format!("{:b}\t|\t", item));
+			result.push_str(&format!("{:b}\t|\t", item.bits));
 		}
 		result.push('\n');
 		result.push_str(&"-".repeat(self.header.len() * 20));
@@ -147,11 +148,11 @@ impl std::string::ToString for SornTable
 		/* Add the Column Header alongside the Tabledata */
 		for (i, row) in self.table_data.iter().enumerate()
 		{
-			result.push_str(&format!("{:b}\t|\t", self.header[i]));
+			result.push_str(&format!("{:b}\t|\t", self.header[i].bits));
 
 			for col in row
 			{
-				result.push_str(&format!("{:b}\t|\t", col));
+				result.push_str(&format!("{:b}\t|\t", col.bits));
 			}
 
 			result.push('\n');

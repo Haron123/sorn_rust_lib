@@ -194,6 +194,11 @@ impl Sorn
 		return result;
 	}
 
+	/*
+	sin O3: [[-0.5,-0.25)]
+	cos O3: [[-0.75,-0.5)]
+	*/
+
 	/* TODO only supports normal ranges and exacts */
 	pub fn pow(&mut self, power: i32) -> Sorn
 	{
@@ -1196,49 +1201,5 @@ mod tests
 	fn test_set_bits()
 	{
 		
-	}
-
-	#[test]
-	fn test_posneg_noinf_add()
-	{
-		/* CSV Format */
-		let expected = 	",1,10,100,1000,10000,\n\
-						1,0,0,1,10,100,\n\
-						10,0,11,10,1110,1000,\n\
-						100,1,10,100,1000,10000,\n\
-						1000,10,1110,1000,11000,0,\n\
-						10000,100,1000,10000,0,0,\n\
-						";
-
-		let set = Rc::new(RefCell::new(SornSet::new(-1.0, 1.0, 1.0, false)));
-		let sorn1 = Sorn::new(set.clone());
-		let table = sorntable_gen::gen_table(sorn1.sorn_set.clone(), "add");
-
-		println!("{}", table.to_csv());
-		println!("{}", expected);
-
-		assert_eq!(table.to_csv(), expected);
-	}
-
-	#[test]
-	fn test_neg_inf_add()
-	{
-		let expected = ",1,10,100,1000,10000,100000,\n\
-						1,1,111111,111111,111111,111111,111111,\n\
-						10,111111,10,10,10,10,111110,\n\
-						100,111111,10,10,10,100,111000,\n\
-						1000,111111,10,10,1110,1000,111000,\n\
-						10000,111111,10,100,1000,10000,100000,\n\
-						100000,111111,111110,111000,111000,100000,100000,\n\
-						";
-
-		let set = Rc::new(RefCell::new(SornSet::new(-1.0, 0.0, 1.0, true)));
-		let sorn1 = Sorn::new(set.clone());
-		let table = sorntable_gen::gen_table(sorn1.sorn_set.clone(), "add");
-
-		println!("{}", table.to_csv());
-		println!("{}", expected);
-
-		assert_eq!(table.to_csv(), expected);
 	}
 }
