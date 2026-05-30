@@ -105,18 +105,18 @@ impl SornTable
 		result.push(',');
 		for item in &self.header
 		{
-			result.push_str(&format!("{},", item.to_string_nobits()));
+			result.push_str(&format!("{},", item.to_string_compact()));
 		}
 		result.push('\n');
 
 		/* Add the Column Header alongside the Tabledata */
 		for (i, row) in self.table_data.iter().enumerate()
 		{
-			result.push_str(&format!("{},", self.header[i].to_string_nobits()));
+			result.push_str(&format!("{},", self.header[i].to_string_compact()));
 
 			for col in row
 			{
-				result.push_str(&format!("{},", col.to_string_nobits()));
+				result.push_str(&format!("{},", col.to_string_compact()));
 			}
 
 			result.push('\n');
