@@ -1104,6 +1104,10 @@ impl std::cmp::PartialEq for Sorn
 	}
 }
 
+impl std::cmp::Eq for Sorn
+{
+}
+
 /* Testing */
 #[cfg(test)]
 mod tests 
